@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Solar System</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url("galaxy.png"); /* Set your galaxy image here */
+            background-size: cover; /* Ensure the image covers the entire background */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+            overflow: hidden;
+            color: white;
+        }
+
+        .solar-system {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s; /* Smooth scaling */
+        }
+
+        .planet img {
+            width: 100%;
+            border-radius: 50%;
+        }
+
+        .sun {
+            width: 120px;
+            height: 120px;
+            background-image: url('sun.png'); /* Set the background image to sun.png */
+            background-size: cover; /* Ensure the image covers the div */
+            background-position: center; /* Center the image */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: black;
+            position: relative;
+            z-index: 10; /* Ensure the sun is on top */
+        }
+
+        #infoBox {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .character {
+            position: absolute;
+            bottom: 100px; /* Adjusted to position above the text */
+            left: 20px;
+            width: 150px; /* Increased character size */
+        }
+
+        .text-box {
+            position: absolute;
+            bottom: 50px; /* Positioning below the character */
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        /* Animations for each planet's orbit */
+        @keyframes orbit1 {
+            0% { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+        }
+
+        @keyframes orbit2 {
+            0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
+        }
+
+        @keyframes orbit3 {
+            0% { transform: rotate(0deg) translateX(250px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(250px) rotate(-360deg); }
+        }
+
+        @keyframes orbit4 {
+            0% { transform: rotate(0deg) translateX(300px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(300px) rotate(-360deg); }
+        }
+
+        @keyframes orbit5 {
+            0% { transform: rotate(0deg) translateX(350px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(350px) rotate(-360deg); }
+        }
+
+        @keyframes orbit6 {
+            0% { transform: rotate(0deg) translateX(400px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(400px) rotate(-360deg); }
+        }
+
+        @keyframes orbit7 {
+            0% { transform: rotate(0deg) translateX(450px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(450px) rotate(-360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="solar-system">
+        <!-- Sun -->
+        <div class="sun"> </div>
+
+        <!-- Planets with unique orbits -->
+        <div class="planet" id="planet1" style="width: 50px; height: 50px; animation: orbit1 10s linear infinite;">
+            <img src="Mercury.png" alt="Mercury">
+        </div>
+
+        <div class="planet" id="planet2" style="width: 60px; height: 60px; animation: orbit2 12s linear infinite;">
+            <img src="Venus.png" alt="Venus">
+        </div>
+
+        <div class="planet" id="planet3" style="width: 70px; height: 70px; animation: orbit3 14s linear infinite;">
+            <img src="earth.png" alt="Earth">
+        </div>
+
+        <div class="planet" id="planet4" style="width: 60px; height: 60px; animation: orbit4 16s linear infinite;">
+            <img src="Mars.png" alt="Mars">
+        </div>
+
+        <div class="planet" id="planet5" style="width: 80px; height: 80px; animation: orbit5 18s linear infinite;">
+            <img src="Jupiter.png" alt="Jupiter">
+        </div>
+
+        <div class="planet" id="planet6" style="width: 80px; height: 80px; animation: orbit6 20s linear infinite;">
+            <img src="saturn.png" alt="Saturn">
+        </div>
+
+        <div class="planet" id="planet7" style="width: 70px; height: 70px; animation: orbit7 22s linear infinite;">
+            <img src="pluto.png" alt="Pluto">
+        </div>
+    </div>
+
+    <!-- Info box -->
+    <div id="infoBox">
+        <h2>Planet Info</h2>
+        <p id="infoText"></p>
+    </div>
+
+    <!-- Animated Character -->
+    <img class="character" src="tutor.png" alt="Character">
+
+    <!-- Text Box -->
+    <div class="text-box">Click on any planet to know more</div>
+
+    <script>
+        // Add interaction when clicking on planets
+        const planetData = {
+            planet1: { name: 'Mercury', description: 'Mercury is the closest planet to the Sun.', speed: '47.87 km/s' },
+            planet2: { name: 'Venus', description: 'Venus is the hottest planet.', speed: '35.02 km/s' },
+            planet3: { name: 'Earth', description: 'Earth is the only planet known to support life.', speed: '29.78 km/s' },
+            planet4: { name: 'Mars', description: 'Mars is known as the Red Planet.', speed: '24.07 km/s' },
+            planet5: { name: 'Jupiter', description: 'Jupiter is the largest planet in the Solar System.', speed: '13.07 km/s' },
+            planet6: { name: 'Saturn', description: 'Saturn is known for its stunning rings.', speed: '9.69 km/s' },
+            planet7: { name: 'Pluto', description: 'Pluto is classified as a dwarf planet.', speed: '4.74 km/s' }
+        };
+
+        document.querySelectorAll('.planet').forEach(planet => {
+            planet.addEventListener('click', () => {
+                const planetId = planet.getAttribute('id');
+                const planetInfo = planetData[planetId];
+                const infoBox = document.getElementById('infoBox');
+                const infoText = document.getElementById('infoText');
+
+                infoBox.style.display = 'block';
+                infoText.textContent = `${planetInfo.name}: ${planetInfo.description} (Speed: ${planetInfo.speed})`;
+            });
+        });
+    </script>
+</body>
+</html>

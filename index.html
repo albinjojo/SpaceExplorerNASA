@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planetary Exploration Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #001f3f;
+            color: #ffffff;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #0056b3;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 15px 25px;
+            margin: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .planet-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px;
+        }
+
+        .planet {
+            background-color: #003366;
+            border-radius: 10px;
+            margin: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .planet:hover {
+            transform: scale(1.05);
+        }
+
+        .planet img {
+            width: 100px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #0056b3;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        /* Overlay Styles */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .overlay-content {
+            background-color: #004080;
+            padding: 30px;
+            border-radius: 10px;
+            width: 50%;
+            max-width: 600px;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .overlay-content h2 {
+            margin-top: 0;
+        }
+
+        .close-button {
+            background-color: #ff5c5c;
+            color: #ffffff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            float: right;
+        }
+
+        .close-button:hover {
+            background-color: #e60000;
+        }
+
+        .overlay-content img {
+            width: 150px;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Planetary Exploration Hub</h1>
+        <p>Explore planets near Earth and learn about their characteristics!</p>
+    </header>
+
+    <div class="button-container fade-in">
+        <a href="explore.html" class="button">Explore Planets</a>
+    </div>
+
+    <div id="planets" class="planet-container fade-in">
+        <div class="planet" onclick="showDetails('Mercury')">
+            <h2>Mercury</h2>
+            <img src="Mercury.png" alt="Mercury">
+        </div>
+        <div class="planet" onclick="showDetails('Venus')">
+            <h2>Venus</h2>
+            <img src="Venus.png" alt="Venus">
+        </div>
+        <div class="planet" onclick="showDetails('Earth')">
+            <h2>Earth</h2>
+            <img src="earth.png" alt="Earth">
+        </div>
+        <div class="planet" onclick="showDetails('Mars')">
+            <h2>Mars</h2>
+            <img src="Mars.png" alt="Mars">
+        </div>
+        <div class="planet" onclick="showDetails('Moon')">
+            <h2>The Moon</h2>
+            <img src="Moon.png" alt="Moon">
+        </div>
+        <div class="planet" onclick="showDetails('Phobos')">
+            <h2>Phobos</h2>
+            <img src="phobos.png" alt="Phobos">
+        </div>
+        <div class="planet" onclick="showDetails('Deimos')">
+            <h2>Deimos</h2>
+            <img src="Deimos.png" alt="Deimos">
+        </div>
+        <div class="planet" onclick="showDetails('Jupiter')">
+            <h2>Jupiter</h2>
+            <img src="Jupiter.png" alt="Jupiter">
+        </div>
+        <div class="planet" onclick="showDetails('Io')">
+            <h2>Io</h2>
+            <img src="lolo.png" alt="Io">
+        </div>
+        <div class="planet" onclick="showDetails('Europa')">
+            <h2>Europa</h2>
+            <img src="Europa.png" alt="Europa">
+        </div>
+        <div class="planet" onclick="showDetails('Ganymede')">
+            <h2>Ganymede</h2>
+            <img src="Ganymede.png" alt="Ganymede">
+        </div>
+        <div class="planet" onclick="showDetails('Callisto')">
+            <h2>Callisto</h2>
+            <img src="Callisto.png" alt="Callisto">
+        </div>
+        <div class="planet" onclick="showDetails('Saturn')">
+            <h2>Saturn</h2>
+            <img src="Saturn.png" alt="Saturn">
+        </div>
+        <div class="planet" onclick="showDetails('Titan')">
+            <h2>Titan</h2>
+            <img src="Titan.png" alt="Titan">
+        </div>
+        <div class="planet" onclick="showDetails('Uranus')">
+            <h2>Uranus</h2>
+            <img src="Uranus.png" alt="Uranus">
+        </div>
+        <div class="planet" onclick="showDetails('Titania')">
+            <h2>Titania</h2>
+            <img src="Titania.png" alt="Titania">
+        </div>
+        <div class="planet" onclick="showDetails('Oberon')">
+            <h2>Oberon</h2>
+            <img src="Oberon.png" alt="Oberon">
+        </div>
+        <div class="planet" onclick="showDetails('Neptune')">
+            <h2>Neptune</h2>
+            <img src="Neptune.png" alt="Neptune">
+        </div>
+        <div class="planet" onclick="showDetails('Triton')">
+            <h2>Triton</h2>
+            <img src="Triton.png" alt="Triton">
+        </div>
+    </div>
+
+    <!-- Overlay for displaying details -->
+    <div id="planet-details-overlay" class="overlay">
+        <div class="overlay-content">
+            <button class="close-button" onclick="closeOverlay()">Close</button>
+            <h2 id="planet-name"></h2>
+            <img id="planet-image" src="" alt="Planet Image">
+            <p id="planet-description"></p>
+        </div>
+    </div>
+
+    <footer>    
+        <p>&copy; 2024 Planetary Exploration Hub. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Example data for each planet
+        const planetDetails = {
+            Mercury: {
+                description: "Mercury is the closest planet to the Sun and the smallest in our solar system.",
+                image: "Mercury.png"
+            },
+            Venus: {
+                description: "Venus is the second planet from the Sun and has a thick, toxic atmosphere.",
+                image: "Venus.png"
+            },
+            Earth: {
+                description: "Earth is the third planet from the Sun and the only known planet to support life.",
+                image: "earth.png"
+            },
+            Mars: {
+                description: "Mars is the fourth planet from the Sun and is known as the Red Planet.",
+                image: "Mars.png"
+            },
+            Moon: {
+                description: "The Moon is Earth's natural satellite and the fifth largest in the solar system.",
+                image: "Moon.png"
+            },
+            Phobos: {
+                description: "Phobos is one of Mars' two moons, known for its irregular shape.",
+                image: "phobos.png"
+            },
+            Deimos: {
+                description: "Deimos is Mars' smaller and more distant moon.",
+                image: "Deimos.png"
+            },
+            Jupiter: {
+                description: "Jupiter is the largest planet in the solar system, known for its Great Red Spot.",
+                image: "Jupiter.png"
+            },
+            Io: {
+                description: "Io is one of Jupiter's moons, known for its active volcanoes.",
+                image: "lolo.png"
+            },
+            Europa: {
+                description: "Europa is another of Jupiter's moons, suspected to have a subsurface ocean beneath.",
+                image: "Europa.png"
+            },
+            Ganymede: {
+                description: "Ganymede is Jupiter's largest moon and the largest moon in the solar system.",
+                image: "Ganymede.png"
+            },
+            Callisto: {
+                description: "Callisto is another large moon of Jupiter, heavily cratered and icy.",
+                image: "Callisto.png"
+            },
+            Saturn: {
+                description: "Saturn is the sixth planet from the Sun, best known for its prominent ring system.",
+                image: "Saturn.png"
+            },
+            Titan: {
+                description: "Titan is Saturn's largest moon, with a thick atmosphere and methane lakes.",
+                image: "Titan.png"
+            },
+            Uranus: {
+                description: "Uranus is the seventh planet from the Sun, unique for its tilted axis of rotation.",
+                image: "Uranus.png"
+            },
+            Titania: {
+                description: "Titania is the largest moon of Uranus, named after a character in Shakespeare's play A Midsummer Night's Dream.",
+                image: "Titania.png"
+            },
+            Oberon: {
+                description: "Oberon is another large moon of Uranus, also named after a Shakespearean character.",
+                image: "Oberon.png"
+            },
+            Neptune: {
+                description: "Neptune is the eighth planet from the Sun, known for its strong winds and blue color.",
+                image: "Neptune.png"
+            },
+            Triton: {
+                description: "Triton is Neptune's largest moon, with geysers that spew nitrogen gas.",
+                image: "Triton.png"
+            }
+        };
+
+        function showDetails(planetName) {
+            const planetInfo = planetDetails[planetName];
+            document.getElementById("planet-name").innerText = planetName;
+            document.getElementById("planet-description").innerText = planetInfo.description || "No details available for this planet.";
+            document.getElementById("planet-image").src = planetInfo.image || "";
+            document.getElementById("planet-details-overlay").style.display = "flex";
+        }
+
+        function closeOverlay() {
+            document.getElementById("planet-details-overlay").style.display = "none";
+        }
+    </script>
+    <style>
+        /* Chatbot Button Styles */
+        .chatbot-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #63a3e722;
+            border-radius: 80%;
+            padding: 15px;
+            cursor: pointer;
+            animation: bounce 1s infinite;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .chatbot-button img {
+            width: 50px;
+            height: 50px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Chatbot Overlay Styles */
+        .chatbot-overlay {
+            display: none;
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background-color: #003366;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            flex-direction: column;
+        }
+
+        .chatbot-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #0056b3;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            color: white;
+        }
+
+        .chatbot-messages .message {
+            margin: 5px 0;
+        }
+
+        .chatbot-messages .user-message {
+            text-align: right;
+            color: #ffeb3b;
+        }
+
+        .chatbot-messages .bot-message {
+            text-align: left;
+            color: #fff;
+        }
+
+        #chatbot-input {
+            border: none;
+            padding: 10px;
+            width: calc(100% - 20px);
+            border-radius: 0 0 10px 10px;
+            margin: 0 10px;
+        }
+
+        .close-chatbot {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+    <!-- Floating Chatbot Button -->
+    <div id="chatbot-button" class="chatbot-button" onclick="toggleChatbot()">
+        <img src="chatbot.png" alt="Chatbot" />
+    </div>
+
+  <!-- Chatbot Overlay -->
+<div id="chatbot-overlay" class="chatbot-overlay">
+    <div class="chatbot-header">
+        <span>Chatbot</span>
+        <button class="close-chatbot" onclick="toggleChatbot()">✖</button>
+    </div>
+    <div id="chatbot-messages" class="chatbot-messages"></div>
+    <input type="text" id="chatbot-input" placeholder="Type a message..." onkeypress="handleChatInput(event)">
+</div>
+
+<script>
+    function toggleChatbot() {
+        const overlay = document.getElementById('chatbot-overlay');
+        overlay.style.display = overlay.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function handleChatInput(event) {
+        if (event.key === 'Enter') {
+            const input = document.getElementById('chatbot-input').value;
+            if (input.trim()) {
+                addMessage('user', input);
+                generateChatbotResponse(input);
+                document.getElementById('chatbot-input').value = ''; // Clear the input field
+            }
+        }
+    }
+
+    function addMessage(sender, message) {
+        const messageContainer = document.getElementById('chatbot-messages');
+        const messageDiv = document.createElement('div');
+        const messageId = 'msg-' + Date.now(); // Create a unique ID
+        messageDiv.id = messageId;
+        messageDiv.className = `message ${sender}-message`;
+        messageDiv.innerText = message;
+        messageContainer.appendChild(messageDiv);
+        messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom of the chat
+    }
+
+    async function generateChatbotResponse(userInput) {
+        const apiUrl = 'http://127.0.0.1:5000/api/chat'; // Flask API URL
+
+        // Show a "thinking" message from the bot
+        const thinkingId = addMessage('bot', 'Thinking...');
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userInput }), // Send the user's input
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            // Remove the "Thinking..." message
+            document.getElementById(thinkingId).remove();
+
+            // Display the bot's response
+            addMessage('bot', data.response || "I'm not sure how to respond to that.");
+        } catch (error) {
+            console.error('Error:', error);
+            // Remove the "Thinking..." message
+            document.getElementById(thinkingId).remove();
+            // Show an error message
+            addMessage('bot', "Sorry, I encountered an error. Please try again later.");
+        }
+    }
+</script>
+
+
+    </script>
+</body>
+</html>
